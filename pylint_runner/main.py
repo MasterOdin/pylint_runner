@@ -60,7 +60,7 @@ def get_files_from_dir(current_dir):
     so long as not within IGNORE_FOLDERS
     :return: all python files that were found off current_dir
     """
-    if current_dir[-1] != "/":
+    if current_dir[-1] != "/" and current_dir != ".":
         current_dir += "/"
     files = []
     for dir_file in os.listdir(current_dir):
