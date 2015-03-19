@@ -4,8 +4,19 @@
 A simple pylint application that runs scans the current directory and any sub-directories recursively, then runs pylint on all discovered .py files.
 
 ##Installation
+Dependencies:
+[*] [colorama](https://pypi.python.org/pypi/colorama)
+[*] [pylint](http://www.pylint.org/)
+[*] [nose](https://nose.readthedocs.org/en/latest/) (for testing)
+
+Preferred installation method:
 ```shell
 pip install pylint_runner
+```
+
+From source:
+```
+python setup.py install
 ```
 
 ##Usage
