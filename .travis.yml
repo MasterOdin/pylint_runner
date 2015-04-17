@@ -14,3 +14,7 @@ script:
   - pylint_runner
 after_success:
   - coveralls
+deploy:
+  provider: pypi
+  user: Master_Odin
+  password: iQbWmHDOPjhADaFoH+fukid3nY4GxnHVKWTtsQRySLm/VqOzVp5FPKHg3nwbQ0U/QeQVWgkLNFaIvfOko2GMD3ckReFFLh6LP/RVB6wV6IbJtS1Skryr06WWJURsRwOta39yultNrATRlujIpb+VRWflNLIM/as91XUEz2eg5V8=
