@@ -4,6 +4,7 @@ setup.py
 
 from setuptools import setup
 import os
+from pip.req import parse_requirements
 
 
 def read(*paths):
@@ -11,9 +12,16 @@ def read(*paths):
     with open(os.path.join(*paths), 'r') as open_file:
         return open_file.read()
 
+
+def get_requirements():
+    """Get requirements from requirements.txt file"""
+    install_reqs = parse_requirements("requirements.txt")
+    return [str(ir.req) for ir in install_reqs]
+
+
 setup(
     name='pylint_runner',
-    version='0.3',
+    version='0.3.1',
     packages=['pylint_runner'],
     url='http://github.com/MasterOdin/pylint_runner',
     license='MIT',
@@ -26,9 +34,8 @@ setup(
             'pylint_runner = pylint_runner.main:runner',
         ]
     },
-    install_requires=['colorama', 'pylint'],
+    install_requires=get_requirements(),
     tests_require=['nose'],
-    #cmdclass={'test': nosetests},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Topic :: Software Development :: Debuggers',

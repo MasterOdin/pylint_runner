@@ -17,7 +17,7 @@ __license__ = "The MIT License (MIT)"
 IGNORE_FOLDERS = [".git", ".idea", "__pycache__"]
 ARGS = ["--reports=n", "--output-format=colorized", "--disable=locally-disabled"]
 
-colorama.init()
+colorama.init(autoreset=True)
 
 
 def runner(output=None, error=None):
@@ -39,8 +39,7 @@ def runner(output=None, error=None):
     print("pylint running on the following files:")
     for pylint_file in pylint_files:
         split_file = pylint_file.split("/")
-        split_file[-1] = colorama.Fore.CYAN + split_file[-1] + \
-            colorama.Fore.BLACK
+        split_file[-1] = colorama.Fore.CYAN + split_file[-1] + colorama.Fore.RESET
         pylint_file = '/'.join(split_file)
         print("- " + pylint_file)
     print("----")
