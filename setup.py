@@ -2,9 +2,9 @@
 setup.py
 """
 
-from setuptools import setup
 import os
 from pip.req import parse_requirements
+from setuptools import setup
 
 
 def read(*paths):

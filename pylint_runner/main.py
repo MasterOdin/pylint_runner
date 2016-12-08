@@ -5,11 +5,12 @@ Runs pylint on all contained python files in this directory, printint out
 nice colorized warnings/errors without all the other report fluff
 """
 from __future__ import print_function
-import colorama
 import os
+import sys
+import colorama
 import pylint
 import pylint.lint
-import sys
+
 
 __author__ = "Matthew 'MasterOdin' Peveler"
 __license__ = "The MIT License (MIT)"
