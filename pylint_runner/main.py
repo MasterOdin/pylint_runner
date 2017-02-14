@@ -117,7 +117,8 @@ class Runner(object):
                 if len(file_split) == 2 and file_split[0] != "" \
                         and file_split[1] == '.py':
                     files.append(file_path)
-            elif (os.path.isdir(dir_file) or os.path.isdir(file_path)) and dir_file not in self.ignore_folders:
+            elif (os.path.isdir(dir_file) or os.path.isdir(file_path))\
+                    and dir_file not in self.ignore_folders:
                 path = dir_file + "/"
                 if current_dir != "" and current_dir != ".":
                     path = current_dir.rstrip("/") + "/" + path
