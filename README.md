@@ -81,4 +81,3 @@ It may be a relative, or absolute path and defaults to `.pylintrc` at the curren
 It will read the value of `ignore` from the rcfile and ignore any matching files/folders while building the list of files to pass to python.
 
 It will also pass that rcfile for use by pylint.
-```
