@@ -73,9 +73,9 @@ def get_files_from_dir(current_dir):
             if len(file_split) == 2 and file_split[0] != "" \
                     and file_split[1] == '.py':
                 files.append(file_path)
-        elif os.path.isdir(dir_file) and dir_file not in IGNORE_FOLDERS:
-            path = dir_file+"/"
+        elif (os.path.isdir(dir_file) or os.path.isdir(file_path)) and dir_file not in IGNORE_FOLDERS:
+            path = dir_file + "/"
             if current_dir != "" and current_dir != ".":
-                path = current_dir.rstrip("/")+"/"+path
+                path = current_dir.rstrip("/") + "/" + path
             files += get_files_from_dir(path)
     return files
