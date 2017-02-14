@@ -4,6 +4,7 @@ setup.py
 
 import os
 from pip.req import parse_requirements
+from pip.download import PipSession
 from setuptools import setup
 
 
@@ -15,13 +16,13 @@ def read(*paths):
 
 def get_requirements():
     """Get requirements from requirements.txt file"""
-    install_reqs = parse_requirements("requirements.txt")
+    install_reqs = parse_requirements("requirements.txt", session=PipSession())
     return [str(ir.req) for ir in install_reqs]
 
 
 setup(
     name='pylint_runner',
-    version='0.3.1',
+    version='0.4.0',
     packages=['pylint_runner'],
     url='http://github.com/MasterOdin/pylint_runner',
     license='MIT',
@@ -31,7 +32,7 @@ setup(
     # long_description=open('README.rst').read() + '\n\n' + open('CHANGELOG.rst').read(),
     entry_points={
         'console_scripts': [
-            'pylint_runner = pylint_runner.main:runner',
+            'pylint_runner = pylint_runner.main:main',
         ]
     },
     install_requires=get_requirements(),
@@ -49,6 +50,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4'
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5'
     ],
 )
