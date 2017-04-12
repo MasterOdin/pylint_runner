@@ -17,7 +17,6 @@ import pylint.lint
 __author__ = "Matthew 'MasterOdin' Peveler"
 __license__ = "The MIT License (MIT)"
 
-
 class Runner(object):
     """ A pylint runner that will lint all files recursively from the CWD. """
 
