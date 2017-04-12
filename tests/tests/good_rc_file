@@ -1,0 +1,5 @@
+[MASTER]
+ignore=migrations
+
+[FORMAT]
+max-line-length=15
