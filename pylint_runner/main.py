@@ -18,9 +18,11 @@ else:
     PY2 = True
 if PY2:
     # noinspection PyCompatibility,PyPep8Naming,PyUnresolvedReferences
+    # pylint: disable=import-error
     import ConfigParser as configparser
 else:
     # noinspection PyCompatibility
+    # pylint: disable=import-error
     import configparser
 
 __author__ = "Matthew 'MasterOdin' Peveler"
