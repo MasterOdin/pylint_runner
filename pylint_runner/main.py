@@ -8,14 +8,25 @@ from __future__ import print_function
 import os
 import sys
 from argparse import ArgumentParser
-import configparser
-
 import colorama
 import pylint
 import pylint.lint
 
+if sys.version_info > (3,):
+    PY2 = False
+else:
+    PY2 = True
+if PY2:
+    # noinspection PyCompatibility,PyPep8Naming,PyUnresolvedReferences
+    import ConfigParser as configparser
+else:
+    # noinspection PyCompatibility
+    import configparser
+
 __author__ = "Matthew 'MasterOdin' Peveler"
 __license__ = "The MIT License (MIT)"
+__version__ = "0.4.0"
+
 
 class Runner(object):
     """ A pylint runner that will lint all files recursively from the CWD. """
@@ -47,7 +58,10 @@ class Runner(object):
                             help='A relative or absolute path to your pylint rcfile. Defaults to\
                             `.pylintrc` at the current working directory')
 
-        options, _unknown = parser.parse_known_args(args)
+        parser.add_argument('-V', '--version', action='version',
+                            version="%(prog)s ("+__version__+")")
+
+        options, _ = parser.parse_known_args(args)
 
         self.verbose = options.verbose
 
@@ -77,7 +91,7 @@ class Runner(object):
         config = configparser.ConfigParser()
         try:
             with open(self.rcfile) as configfile:
-                config.read_file(configfile)
+                config.read(configfile)
         except configparser.MissingSectionHeaderError:
             print(error_message)
             sys.exit(1)
