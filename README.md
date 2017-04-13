@@ -1,9 +1,9 @@
 # pylint_runner
 [![Build Status](https://travis-ci.org/MasterOdin/pylint_runner.svg?branch=master)](https://travis-ci.org/MasterOdin/pylint_runner)
 [![Coverage Status](https://coveralls.io/repos/MasterOdin/pylint_runner/badge.svg?branch=master)](https://coveralls.io/r/MasterOdin/pylint_runner?branch=master)
-[![PyPI version](https://badge.fury.io/py/pylint_runner.svg)](https://badge.fury.io/py/pylint_runner)
+[![PyPI version](https://img.shields.io/pypi/v/pylint_runner.svg)](https://pypi.python.org/pypi/pylint_runner/)
 [![Supported Python versions](https://img.shields.io/badge/python%20version-2.6%2B%2C%203.2%2B-brightgreen.svg)](https://pypi.python.org/pypi/pylint_runner/)
-[![License](https://img.shields.io/github/license/MasterOdin/pylint_runner.svg)](https://pypi.python.org/pypi/pylint_runner/)
+[![License](https://img.shields.io/github/license/MasterOdin/pylint_runner.svg)](https://github.com/MasterOdin/pylint_runner/)
 
 A simple pylint application that scans the current directory and any sub-directories recursively, then runs pylint on all discovered `.py` files.
 
