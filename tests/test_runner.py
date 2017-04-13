@@ -23,12 +23,14 @@ def test_get_files_current_dir():
 
 
 def test_main():
+    os.path.dirname(os.path.realpath(__file__))
     with assert_raises(SystemExit) as context_manager:
         runner.main(error=open(os.devnull, 'w'))
     assert_equal(context_manager.exception.code, 0)
 
 
 def test_rcparser_success():
+    os.path.dirname(os.path.realpath(__file__))
     with assert_raises(SystemExit) as context_manager:
         args = ['--rcfile', 'tests/tests/good_rc_file']
         the_runner = runner.Runner(args=args)
@@ -38,6 +40,7 @@ def test_rcparser_success():
 
 
 def test_rcparser_failure():
+    os.path.dirname(os.path.realpath(__file__))
     with assert_raises(SystemExit) as context_manager:
         args = ['--rcfile', 'tests/tests/bad_rc_file']
         runner.Runner(args=args)
@@ -45,6 +48,7 @@ def test_rcparser_failure():
 
 
 def test_rcparser_bad_file():
+    os.path.dirname(os.path.realpath(__file__))
     with assert_raises(SystemExit) as context_manager:
         args = ['--rcfile', 'non-existant-file']
         runner.Runner(args=args)

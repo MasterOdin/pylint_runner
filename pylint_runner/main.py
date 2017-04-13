@@ -154,7 +154,8 @@ class Runner(object):
 
         self._print_line("pylint running on the following files:")
         for pylint_file in pylint_files:
-            split_file = pylint_file.split("/")
+            # we need to recast this as a string, else pylint enters an endless recursion
+            split_file = str(pylint_file).split("/")
             split_file[-1] = colorama.Fore.CYAN + split_file[-1] + colorama.Fore.RESET
             pylint_file = '/'.join(split_file)
             self._print_line("- " + pylint_file)
@@ -164,14 +165,16 @@ class Runner(object):
             self.args += ['--rcfile={}'.format(self.rcfile)]
 
         run = pylint.lint.Run(self.args + pylint_files, exit=False)
-
         sys.stdout = savedout
         sys.stderr = savederr
 
         sys.exit(run.linter.msg_status)
 
 
-def main(output=None, error=None):
+def main(output=None, error=None, verbose=False):
     """ The main (cli) interface for the pylint runner. """
-    runner = Runner()
+    runner = Runner(args=["--verbose"] if verbose is not False else None)
     runner.run(output, error)
+
+if __name__ == "__main__":
+    main(verbose=True)
