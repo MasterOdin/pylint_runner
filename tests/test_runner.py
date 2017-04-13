@@ -29,7 +29,6 @@ def test_main():
 
 
 def test_rcparser_success():
-
     with assert_raises(SystemExit) as context_manager:
         args = ['--rcfile', 'tests/tests/good_rc_file']
         the_runner = runner.Runner(args=args)

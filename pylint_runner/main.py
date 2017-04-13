@@ -90,14 +90,13 @@ class Runner(object):
 
         config = configparser.ConfigParser()
         try:
-            with open(self.rcfile) as configfile:
-                config.read(configfile)
+            config.read(self.rcfile)
         except configparser.MissingSectionHeaderError:
             print(error_message)
             sys.exit(1)
 
-        if config.has_section('MASTER') and config['MASTER'].get('ignore'):
-            self.ignore_folders += config['MASTER'].get('ignore').split(',')
+        if config.has_section('MASTER') and config.get('MASTER', 'ignore'):
+            self.ignore_folders += config.get('MASTER', 'ignore').split(',')
 
     def _is_using_default_rcfile(self):
         return self.rcfile == os.getcwd() + '/' + self.DEFAULT_RCFILE
