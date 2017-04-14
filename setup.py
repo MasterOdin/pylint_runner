@@ -7,6 +7,8 @@ from pip.req import parse_requirements
 from pip.download import PipSession
 from setuptools import setup
 
+from pylint_runner import __author__, __version__
+
 
 def read(*paths):
     """Build a file path from *paths* and return the contents."""
@@ -22,11 +24,11 @@ def get_requirements():
 
 setup(
     name='pylint_runner',
-    version='0.4.0',
+    version=__version__,
     packages=['pylint_runner'],
     url='http://github.com/MasterOdin/pylint_runner',
     license='MIT',
-    author='Matthew Peveler',
+    author=__author__,
     author_email='matt.peveler@gmail.com',
     description='Run pylint recursively on all py files in current and sub directories',
     # long_description=open('README.rst').read() + '\n\n' + open('CHANGELOG.rst').read(),
@@ -38,7 +40,8 @@ setup(
     install_requires=get_requirements(),
     tests_require=['nose'],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
         'Topic :: Software Development :: Debuggers',
         'Topic :: Software Development :: Quality Assurance',
         'Topic :: Software Development :: Testing',

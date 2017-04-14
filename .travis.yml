@@ -8,8 +8,12 @@ python:
   - '3.5'
 
 install:
+  - pip install -r requirements.txt
   - pip install coveralls
   - python setup.py install
+  - rm -rf build
+  - rm -rf dist
+  - rm -rf pylint_runner.egg-info
 
 script:
   - nosetests -v --with-coverage --cover-package=pylint_runner
@@ -27,3 +31,8 @@ deploy:
     tags: true
     distributions: sdist bdist_wheel
     repo: MasterOdin/pylint_runner
+
+notifications:
+  email:
+    - on_failure: change
+    - on_success: change

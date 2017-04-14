@@ -12,6 +12,8 @@ import colorama
 import pylint
 import pylint.lint
 
+from pylint_runner import __version__
+
 if sys.version_info > (3,):
     PY2 = False
 else:
@@ -24,10 +26,6 @@ else:
     # noinspection PyCompatibility
     # pylint: disable=import-error
     import configparser
-
-__author__ = "Matthew 'MasterOdin' Peveler"
-__license__ = "The MIT License (MIT)"
-__version__ = "0.4.0"
 
 
 class Runner(object):
