@@ -38,10 +38,11 @@ From source::
 
     python setup.py install
 
-When installed, this will create an executable `pylint_runner` and `pylint_runner#` where
-# represents the major version of python you installed with. Much like pip, if installed
-for both python2 and python3, you will see both `pylint_runner2` and `pylint_runner3`
-which can be used to run this code.
+When installed, this will create an executable `pylint_runner`, `pylint_runner#`, and `pylint_runner#.#`
+where the first # represents the major version of Python (2 or 3) and the second # represents the minor
+version of Python. So if installed by Python 2.7, you will have available `pylint_runner`, `pylint_runner2`,
+and `pylint_runner2.7` so as to allow usage by however many installed versions of python on the system as
+pylint is version dependent on its output (due to using the Python AST).
 
 Usage
 -----
