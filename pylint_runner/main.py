@@ -29,6 +29,7 @@ else:
 
 PYTHON_VERSION = '.'.join([str(x) for x in sys.version_info[0:3]])
 
+
 class Runner(object):
     """ A pylint runner that will lint all files recursively from the CWD. """
 
@@ -133,9 +134,9 @@ class Runner(object):
                     files.append(file_path)
             elif (os.path.isdir(dir_file) or os.path.isdir(file_path))\
                     and dir_file not in self.ignore_folders:
-                path = dir_file + "/"
+                path = dir_file + os.path.sep
                 if current_dir != "" and current_dir != ".":
-                    path = current_dir.rstrip("/") + "/" + path
+                    path = os.path.join(current_dir.rstrip(os.path.sep), path)
                 files += self.get_files_from_dir(path)
         return files
 

@@ -9,7 +9,8 @@ from pip.download import PipSession
 from setuptools import setup
 from pylint_runner import __author__, __version__
 
-PY3 = sys.version_info > (3,)
+MAJOR_VERSION = sys.version_info[0]
+MAJOR_MINOR_VERSION = '.'.join([str(x) for x in sys.version_info[0:2]])
 
 
 def read(*paths):
@@ -24,7 +25,8 @@ def get_requirements():
     return [str(ir.req) for ir in install_reqs]
 
 CONSOLE_SCRIPTS = ['pylint_runner = pylint_runner.main:main',
-                   'pylint_runner{0} = pylint_runner.main:main'.format('3' if PY3 else '2')]
+                   'pylint_runner{0} = pylint_runner.main:main'.format(MAJOR_VERSION),
+                   'pylint_runner{0} = pylint_runner.main:main'.format(MAJOR_MINOR_VERSION)]
 
 setup(
     name='pylint_runner',
@@ -35,7 +37,7 @@ setup(
     author=__author__,
     author_email='matt.peveler@gmail.com',
     description='Run pylint recursively on all py files in current and sub directories',
-    long_description=open('README.rst').read(), #+ '\n\n' + open('CHANGELOG.rst').read(),
+    long_description=open('README.rst').read(),  # + '\n\n' + open('CHANGELOG.rst').read(),
     entry_points={"console_scripts": CONSOLE_SCRIPTS},
     install_requires=get_requirements(),
     tests_require=['nose'],
