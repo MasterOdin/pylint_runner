@@ -27,6 +27,7 @@ else:
     # pylint: disable=import-error
     import configparser
 
+PYTHON_VERSION = '.'.join([str(x) for x in sys.version_info[0:3]])
 
 class Runner(object):
     """ A pylint runner that will lint all files recursively from the CWD. """
@@ -59,7 +60,8 @@ class Runner(object):
                             `.pylintrc` at the current working directory')
 
         parser.add_argument('-V', '--version', action='version',
-                            version="%(prog)s ("+__version__+")")
+                            version="%(prog)s ({0}) for Python {1}".format(__version__,
+                                                                           PYTHON_VERSION))
 
         options, _ = parser.parse_known_args(args)
 
@@ -147,10 +149,9 @@ class Runner(object):
         sys.stderr = pylint_error
 
         pylint_files = self.get_files_from_dir(os.curdir)
-        version = '.'.join([str(x) for x in sys.version_info[0:3]])
         self._print_line("Using pylint " + colorama.Fore.RED + pylint.__version__ +
                          colorama.Fore.RESET + " for python " + colorama.Fore.RED +
-                         version + colorama.Fore.RESET)
+                         PYTHON_VERSION + colorama.Fore.RESET)
 
         self._print_line("pylint running on the following files:")
         for pylint_file in pylint_files:

@@ -3,11 +3,13 @@ setup.py
 """
 
 import os
+import sys
 from pip.req import parse_requirements
 from pip.download import PipSession
 from setuptools import setup
-
 from pylint_runner import __author__, __version__
+
+PY3 = sys.version_info > (3,)
 
 
 def read(*paths):
@@ -21,6 +23,8 @@ def get_requirements():
     install_reqs = parse_requirements("requirements.txt", session=PipSession())
     return [str(ir.req) for ir in install_reqs]
 
+CONSOLE_SCRIPTS = ['pylint_runner = pylint_runner.main:main',
+                   'pylint_runner{0} = pylint_runner.main:main'.format('3' if PY3 else '2')]
 
 setup(
     name='pylint_runner',
@@ -31,12 +35,8 @@ setup(
     author=__author__,
     author_email='matt.peveler@gmail.com',
     description='Run pylint recursively on all py files in current and sub directories',
-    # long_description=open('README.rst').read() + '\n\n' + open('CHANGELOG.rst').read(),
-    entry_points={
-        'console_scripts': [
-            'pylint_runner = pylint_runner.main:main',
-        ]
-    },
+    long_description=open('README.rst').read(), #+ '\n\n' + open('CHANGELOG.rst').read(),
+    entry_points={"console_scripts": CONSOLE_SCRIPTS},
     install_requires=get_requirements(),
     tests_require=['nose'],
     classifiers=[
