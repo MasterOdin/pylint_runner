@@ -1,7 +1,7 @@
 # pylint: disable=missing-docstring
 import os
-import pylint_runner.main as runner
 from nose.tools import assert_raises, assert_equal, assert_in, assert_true
+import pylint_runner.main as runner
 
 
 def test_get_files():
