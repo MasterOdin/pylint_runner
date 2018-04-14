@@ -4,8 +4,6 @@ setup.py
 
 import os
 import sys
-from pip.req import parse_requirements
-from pip.download import PipSession
 from setuptools import setup
 from pylint_runner import __author__, __version__
 
@@ -21,8 +19,9 @@ def read(*paths):
 
 def get_requirements():
     """Get requirements from requirements.txt file"""
-    install_reqs = parse_requirements("requirements.txt", session=PipSession())
-    return [str(ir.req) for ir in install_reqs]
+    with open('requirements.txt') as requirements:
+        reqs = requirements.readlines()
+    return reqs
 
 CONSOLE_SCRIPTS = ['pylint_runner = pylint_runner.main:main',
                    'pylint_runner{0} = pylint_runner.main:main'.format(MAJOR_VERSION),
