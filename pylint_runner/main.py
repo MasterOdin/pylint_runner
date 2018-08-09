@@ -166,7 +166,7 @@ class Runner(object):
         if not self._is_using_default_rcfile():
             self.args += ['--rcfile={}'.format(self.rcfile)]
 
-        run = pylint.lint.Run(self.args + pylint_files, exit=False)
+        run = pylint.lint.Run(self.args + pylint_files, do_exit=False)
         sys.stdout = savedout
         sys.stderr = savederr
 
