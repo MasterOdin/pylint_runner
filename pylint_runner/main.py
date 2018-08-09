@@ -30,7 +30,7 @@ else:
 PYTHON_VERSION = '.'.join([str(x) for x in sys.version_info[0:3]])
 
 
-class Runner(object):
+class Runner():
     """ A pylint runner that will lint all files recursively from the CWD. """
 
     DEFAULT_IGNORE_FOLDERS = [".git", ".idea", "__pycache__"]
@@ -135,7 +135,7 @@ class Runner(object):
             elif (os.path.isdir(dir_file) or os.path.isdir(file_path))\
                     and dir_file not in self.ignore_folders:
                 path = dir_file + os.path.sep
-                if current_dir != "" and current_dir != ".":
+                if current_dir not in["", "."]:
                     path = os.path.join(current_dir.rstrip(os.path.sep), path)
                 files += self.get_files_from_dir(path)
         return files
