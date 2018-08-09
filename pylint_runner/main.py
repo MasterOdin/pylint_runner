@@ -166,10 +166,9 @@ class Runner():
         if not self._is_using_default_rcfile():
             self.args += ['--rcfile={}'.format(self.rcfile)]
             
+        exit_kwarg = {'exit': False} if PY2 else {'do_exit': False}
         
-        exit={'exit':False} if PY2 else {'do_exit':False}
-           
-        run = pylint.lint.Run(self.args + pylint_files, **exit)
+        run = pylint.lint.Run(self.args + pylint_files, **exit_kwarg)
         sys.stdout = savedout
         sys.stderr = savederr
 
