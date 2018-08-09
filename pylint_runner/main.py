@@ -29,7 +29,7 @@ else:
 
 PYTHON_VERSION = '.'.join([str(x) for x in sys.version_info[0:3]])
 
-class Runner: #pylint: disable=C1001 
+class Runner: #pylint: disable=C1001
     """ A pylint runner that will lint all files recursively from the CWD. """
 
     DEFAULT_IGNORE_FOLDERS = [".git", ".idea", "__pycache__"]
