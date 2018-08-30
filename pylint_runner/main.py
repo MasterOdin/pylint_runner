@@ -166,7 +166,7 @@ class Runner(object):
         if not self._is_using_default_rcfile():
             self.args += ['--rcfile={}'.format(self.rcfile)]
 
-        run = pylint.lint.Run(self.args + pylint_files, exit=False)
+        run = pylint.lint.Run(self.args + pylint_files)
         sys.stdout = savedout
         sys.stderr = savederr
 
@@ -177,6 +177,7 @@ def main(output=None, error=None, verbose=False):
     """ The main (cli) interface for the pylint runner. """
     runner = Runner(args=["--verbose"] if verbose is not False else None)
     runner.run(output, error)
+
 
 if __name__ == "__main__":
     main(verbose=True)
