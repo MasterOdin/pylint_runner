@@ -20,7 +20,10 @@ install:
   - pip install -r requirements.txt
   - pip install coveralls
   - python setup.py install
-
+  - rm -rf build
+  - rm -rf dist
+  - rm -rf pylint_runner.egg-info
+  - rm -rf plint_runner/__pycache__
 
 script:
   - nosetests -v --with-coverage --cover-package=pylint_runner
@@ -28,35 +31,19 @@ script:
 
 after_success:
   - coveralls
-  - rm -rf build
-  - rm -rf dist
-  - rm -rf pylint_runner.egg-info
-  - rm -rf plint_runner/__pycache__
-  - pushd ..; zip -r /tmp/pylint_runner_$(python3 -c "from pylint_runner import __version__; print(__version__, end='')").zip pylint_runner; popd
 
 deploy:
-#  - provider: pypi
-#    skip_cleanup: true
-#    on:
-#      tags: true
-#      python: '3.6'
-#       repo: MasterOdin/pylint_runner
-#    distributions: 'bdist_wheel sdist'
-#    user: Master_Odin_Bot
-#    
-#    password:
-#      secure: NA6DRE/llIT1LhMu5JlYMH8yShAI3qpAVCasYpfCncRnChY7Cr5fRI4eEW465T0xQLXNKEQod3pRvmCWFtAKTtHx7Eqkf2+lZlK7bO0ToYrJ8QL3lAl3EY9UpQDBNtECc2/6ctROND2UqqifZkuHUKvNHc3qsjTGDAeFzvPQxj4=  
-  - provider: releases
-    skip_cleanup: true
-    on:
-      tags: true
-      python: '3.6'
+  provider: pypi
+  skip_cleanup: true
+  on:
+    tags: true
+    python: '3.6'
       repo: MasterOdin/pylint_runner
-    file_glob: true
-    file: /tmp/pylint_runner_*.zip
-    api_key:
-      secure: OM7lsuDRaja2BpMRB5pjmL8mhf0U3/WW0wodKmFuUEIIKXbpmPg//oEXU41QgdsDON5hLBoStCfFh6OKCM4K6/6Iok7/KYp1eEFNpZJ/sLrmMLDWHJ8dCtIi6r5g3fglmnVHfUPtBV7qP4igmKmcp6+7lCI/BrNXFtQdHWx5NvU=
-      
+  distributions: 'bdist_wheel sdist'
+  user: Master_Odin_Bot
+    
+  password:
+    secure: NA6DRE/llIT1LhMu5JlYMH8yShAI3qpAVCasYpfCncRnChY7Cr5fRI4eEW465T0xQLXNKEQod3pRvmCWFtAKTtHx7Eqkf2+lZlK7bO0ToYrJ8QL3lAl3EY9UpQDBNtECc2/6ctROND2UqqifZkuHUKvNHc3qsjTGDAeFzvPQxj4=  
     
 
 notifications:
