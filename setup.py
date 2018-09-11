@@ -40,7 +40,7 @@ setup(
     install_requires=get_requirements(),
     tests_require=["nose"],
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Topic :: Software Development :: Debuggers",
         "Topic :: Software Development :: Quality Assurance",
