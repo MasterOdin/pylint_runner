@@ -27,14 +27,15 @@ else:
     # pylint: disable=import-error
     import configparser
 
-PYTHON_VERSION = '.'.join([str(x) for x in sys.version_info[0:3]])
+PYTHON_VERSION = ".".join([str(x) for x in sys.version_info[0:3]])
 
-class Runner: #pylint: disable=C1001
+
+class Runner:  # pylint: disable=C1001
     """ A pylint runner that will lint all files recursively from the CWD. """
 
     DEFAULT_IGNORE_FOLDERS = [".git", ".idea", "__pycache__"]
     DEFAULT_ARGS = ["--reports=n", "--output-format=colorized"]
-    DEFAULT_RCFILE = '.pylintrc'
+    DEFAULT_RCFILE = ".pylintrc"
 
     def __init__(self, args=None):
         colorama.init(autoreset=True)
@@ -50,18 +51,32 @@ class Runner: #pylint: disable=C1001
     def _parse_args(self, args):
         """Parses any supplied command-line args and provides help text. """
 
-        parser = ArgumentParser(description='Runs pylint recursively on a directory')
+        parser = ArgumentParser(description="Runs pylint recursively on a directory")
 
-        parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', default=False,
-                            help='Verbose mode (report which files were found for testing).')
+        parser.add_argument(
+            "-v",
+            "--verbose",
+            dest="verbose",
+            action="store_true",
+            default=False,
+            help="Verbose mode (report which files were found for testing).",
+        )
 
-        parser.add_argument('--rcfile', dest='rcfile', action='store', default='.pylintrc',
-                            help='A relative or absolute path to your pylint rcfile. Defaults to\
-                            `.pylintrc` at the current working directory')
+        parser.add_argument(
+            "--rcfile",
+            dest="rcfile",
+            action="store",
+            default=".pylintrc",
+            help="A relative or absolute path to your pylint rcfile. Defaults to\
+                            `.pylintrc` at the current working directory",
+        )
 
-        parser.add_argument('-V', '--version', action='version',
-                            version="%(prog)s ({0}) for Python {1}".format(__version__,
-                                                                           PYTHON_VERSION))
+        parser.add_argument(
+            "-V",
+            "--version",
+            action="version",
+            version="%(prog)s ({0}) for Python {1}".format(__version__, PYTHON_VERSION),
+        )
 
         options, _ = parser.parse_known_args(args)
 
@@ -69,7 +84,7 @@ class Runner: #pylint: disable=C1001
 
         if options.rcfile:
             if not os.path.isfile(options.rcfile):
-                options.rcfile = os.getcwd() + '/' + options.rcfile
+                options.rcfile = os.getcwd() + "/" + options.rcfile
             self.rcfile = options.rcfile
 
         return options
@@ -78,9 +93,9 @@ class Runner: #pylint: disable=C1001
         """ Parse the ignores setting from the pylintrc file if available. """
 
         error_message = (
-            colorama.Fore.RED +
-            '{} does not appear to be a valid pylintrc file'.format(self.rcfile) +
-            colorama.Fore.RESET
+            colorama.Fore.RED
+            + "{} does not appear to be a valid pylintrc file".format(self.rcfile)
+            + colorama.Fore.RESET
         )
 
         if not os.path.isfile(self.rcfile):
@@ -97,11 +112,11 @@ class Runner: #pylint: disable=C1001
             print(error_message)
             sys.exit(1)
 
-        if config.has_section('MASTER') and config.get('MASTER', 'ignore'):
-            self.ignore_folders += config.get('MASTER', 'ignore').split(',')
+        if config.has_section("MASTER") and config.get("MASTER", "ignore"):
+            self.ignore_folders += config.get("MASTER", "ignore").split(",")
 
     def _is_using_default_rcfile(self):
-        return self.rcfile == os.getcwd() + '/' + self.DEFAULT_RCFILE
+        return self.rcfile == os.getcwd() + "/" + self.DEFAULT_RCFILE
 
     def _print_line(self, line):
         """ Print output only with verbose flag. """
@@ -128,13 +143,17 @@ class Runner: #pylint: disable=C1001
 
             if os.path.isfile(file_path):
                 file_split = os.path.splitext(dir_file)
-                if len(file_split) == 2 and file_split[0] != "" \
-                        and file_split[1] == '.py':
+                if (
+                    len(file_split) == 2
+                    and file_split[0] != ""
+                    and file_split[1] == ".py"
+                ):
                     files.append(file_path)
-            elif (os.path.isdir(dir_file) or os.path.isdir(file_path))\
-                    and dir_file not in self.ignore_folders:
+            elif (
+                os.path.isdir(dir_file) or os.path.isdir(file_path)
+            ) and dir_file not in self.ignore_folders:
                 path = dir_file + os.path.sep
-                if current_dir not in["", "."]:
+                if current_dir not in ["", "."]:
                     path = os.path.join(current_dir.rstrip(os.path.sep), path)
                 files += self.get_files_from_dir(path)
         return files
@@ -149,23 +168,30 @@ class Runner: #pylint: disable=C1001
         sys.stderr = pylint_error
 
         pylint_files = self.get_files_from_dir(os.curdir)
-        self._print_line("Using pylint " + colorama.Fore.RED + pylint.__version__ +
-                         colorama.Fore.RESET + " for python " + colorama.Fore.RED +
-                         PYTHON_VERSION + colorama.Fore.RESET)
+        self._print_line(
+            "Using pylint "
+            + colorama.Fore.RED
+            + pylint.__version__
+            + colorama.Fore.RESET
+            + " for python "
+            + colorama.Fore.RED
+            + PYTHON_VERSION
+            + colorama.Fore.RESET
+        )
 
         self._print_line("pylint running on the following files:")
         for pylint_file in pylint_files:
             # we need to recast this as a string, else pylint enters an endless recursion
             split_file = str(pylint_file).split("/")
             split_file[-1] = colorama.Fore.CYAN + split_file[-1] + colorama.Fore.RESET
-            pylint_file = '/'.join(split_file)
+            pylint_file = "/".join(split_file)
             self._print_line("- " + pylint_file)
         self._print_line("----")
 
         if not self._is_using_default_rcfile():
-            self.args += ['--rcfile={}'.format(self.rcfile)]
+            self.args += ["--rcfile={}".format(self.rcfile)]
 
-        exit_kwarg = {'exit': False} if PY2 else {'do_exit': False}
+        exit_kwarg = {"exit": False} if PY2 else {"do_exit": False}
 
         run = pylint.lint.Run(self.args + pylint_files, **exit_kwarg)
         sys.stdout = savedout
@@ -178,6 +204,7 @@ def main(output=None, error=None, verbose=False):
     """ The main (cli) interface for the pylint runner. """
     runner = Runner(args=["--verbose"] if verbose is not False else None)
     runner.run(output, error)
+
 
 if __name__ == "__main__":
     main(verbose=True)
