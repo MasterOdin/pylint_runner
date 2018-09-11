@@ -38,10 +38,9 @@ deploy:
   on:
     tags: true
     python: '3.6'
-      repo: MasterOdin/pylint_runner
+    repo: MasterOdin/pylint_runner
   distributions: 'bdist_wheel sdist'
   user: Master_Odin_Bot
-    
   password:
     secure: NA6DRE/llIT1LhMu5JlYMH8yShAI3qpAVCasYpfCncRnChY7Cr5fRI4eEW465T0xQLXNKEQod3pRvmCWFtAKTtHx7Eqkf2+lZlK7bO0ToYrJ8QL3lAl3EY9UpQDBNtECc2/6ctROND2UqqifZkuHUKvNHc3qsjTGDAeFzvPQxj4=  
     
