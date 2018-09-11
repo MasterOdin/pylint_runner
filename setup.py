@@ -2,7 +2,6 @@
 setup.py
 """
 
-import os
 import sys
 from setuptools import setup
 from pylint_runner import __author__, __version__
