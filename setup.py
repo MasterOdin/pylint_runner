@@ -11,12 +11,6 @@ MAJOR_VERSION = sys.version_info[0]
 MAJOR_MINOR_VERSION = ".".join([str(x) for x in sys.version_info[0:2]])
 
 
-def read(*paths):
-    """Build a file path from *paths* and return the contents."""
-    with open(os.path.join(*paths), "r") as open_file:
-        return open_file.read()
-
-
 def get_requirements():
     """Get requirements from requirements.txt file"""
     with open("requirements.txt") as requirements:

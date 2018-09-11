@@ -2,8 +2,8 @@
 
 ## 0.5.4 (09/12/2018)
 
-* Fix break in function signature of pylint.lint.Run (thanks cjhall1283)
-* Peg dependency version of pylint to known working version for 2.7+ (will remove 2.7 support next release)
+* Fix break in function signature of pylint.lint.Run for Python 3+ (thanks cjhall1283)
+* Mark this as the last release for Python 2.7 (will be removed in 0.6.0)
 
 ## 0.5.3 (04/16/2018)
 
