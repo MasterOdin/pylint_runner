@@ -1,3 +1,2 @@
 colorama
-pylint
-pip
+pylint>=1.8,<2.0

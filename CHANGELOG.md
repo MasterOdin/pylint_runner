@@ -1,5 +1,22 @@
 # History
 
+## 0.5.4 (09/12/2018)
+
+* Fix break in function signature of pylint.lint.Run (thanks cjhall1283)
+* Peg dependency version of pylint to known working version for 2.7+ (will remove 2.7 support next release)
+
+## 0.5.3 (04/16/2018)
+
+* Remove official support of Python 2.6, 3.2, and 3.3
+
+## 0.5.2 (04/14/2018)
+
+* Remove dependency on pip
+
+## 0.5.1 (02/27/2018)
+
+* Mark Python 3.6 as supported
+
 ## 0.5.0 (04/25/2017)
 
 * Added additional entry points to make it possible to have pylint_runner installed for multiple python versions
