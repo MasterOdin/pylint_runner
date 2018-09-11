@@ -35,6 +35,10 @@ after_success:
   - pushd ..; zip -r /tmp/pylint_runner_$(python3 -c "from pylint_runner import __version__; print(__version__, end='')").zip pylint_runner; popd
 
 deploy:
+  skip_cleanup: true
+  on:
+    tags: true
+    python: '3.6'
 #  - provider: pypi
 #    skip_cleanup: true
 #    on:
@@ -46,10 +50,6 @@ deploy:
 #    password:
 #      secure: NA6DRE/llIT1LhMu5JlYMH8yShAI3qpAVCasYpfCncRnChY7Cr5fRI4eEW465T0xQLXNKEQod3pRvmCWFtAKTtHx7Eqkf2+lZlK7bO0ToYrJ8QL3lAl3EY9UpQDBNtECc2/6ctROND2UqqifZkuHUKvNHc3qsjTGDAeFzvPQxj4=  
   - provider: releases
-    skip_cleanup: true
-    on:
-      tags: true
-      python: '3.6'
     file_glob: true
     file: /tmp/pylint_runner_*.zip
     api_key:
