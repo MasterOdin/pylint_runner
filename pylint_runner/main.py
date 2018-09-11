@@ -143,15 +143,11 @@ class Runner:  # pylint: disable=C1001
 
             if os.path.isfile(file_path):
                 file_split = os.path.splitext(dir_file)
-                if (
-                    len(file_split) == 2
-                    and file_split[0] != ""
-                    and file_split[1] == ".py"
-                ):
+                if len(file_split) == 2 and file_split[0] != "" \
+                        and file_split[1] == ".py":
                     files.append(file_path)
-            elif (
-                os.path.isdir(dir_file) or os.path.isdir(file_path)
-            ) and dir_file not in self.ignore_folders:
+            elif (os.path.isdir(dir_file) or os.path.isdir(file_path)) \
+                    and dir_file not in self.ignore_folders:
                 path = dir_file + os.path.sep
                 if current_dir not in ["", "."]:
                     path = os.path.join(current_dir.rstrip(os.path.sep), path)
