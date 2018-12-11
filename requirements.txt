@@ -1,2 +1,2 @@
 colorama
-pylint<=2.2
+pylint<2.2
