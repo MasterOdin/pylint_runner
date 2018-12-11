@@ -3,34 +3,22 @@
 Runs pylint on all contained python files in this directory, printint out
 nice colorized warnings/errors without all the other report fluff
 """
-from __future__ import print_function
 
+from argparse import ArgumentParser
+import configparser
 import os
 import sys
-from argparse import ArgumentParser
+
 import colorama
 import pylint
 import pylint.lint
 
 from pylint_runner import __version__
 
-if sys.version_info > (3,):
-    PY2 = False
-else:
-    PY2 = True
-if PY2:
-    # noinspection PyCompatibility,PyPep8Naming,PyUnresolvedReferences
-    # pylint: disable=import-error
-    import ConfigParser as configparser
-else:
-    # noinspection PyCompatibility
-    # pylint: disable=import-error
-    import configparser
-
 PYTHON_VERSION = ".".join([str(x) for x in sys.version_info[0:3]])
 
 
-class Runner:  # pylint: disable=C1001
+class Runner:
     """ A pylint runner that will lint all files recursively from the CWD. """
 
     DEFAULT_IGNORE_FOLDERS = [".git", ".idea", "__pycache__"]
@@ -187,7 +175,7 @@ class Runner:  # pylint: disable=C1001
         if not self._is_using_default_rcfile():
             self.args += ["--rcfile={}".format(self.rcfile)]
 
-        exit_kwarg = {"exit": False} if PY2 else {"do_exit": False}
+        exit_kwarg = {"do_exit": False}
 
         run = pylint.lint.Run(self.args + pylint_files, **exit_kwarg)
         sys.stdout = savedout
