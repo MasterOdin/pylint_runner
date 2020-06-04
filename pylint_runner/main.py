@@ -164,7 +164,7 @@ class Runner:
         sys.stderr = pylint_error
 
         pylint_files = self.get_files_from_dir(os.curdir)
-        self._print_line(
+        print(
             "Using pylint "
             + colorama.Fore.RED
             + pylint.__version__
@@ -172,7 +172,8 @@ class Runner:
             + " for python "
             + colorama.Fore.RED
             + PYTHON_VERSION
-            + colorama.Fore.RESET
+            + colorama.Fore.RESET,
+            file=sys.stdout
         )
 
         self._print_line("pylint running on the following files:")
