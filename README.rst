@@ -23,9 +23,9 @@ then runs pylint on all discovered `.py` files.
 Dependencies
 ------------
 
-- `colorama <https://pypi.python.org/pypi/colorama>`_
-- `pylint <https://pypi.python.org/pypi/pylint>`_
-- `nose <https://pypi.python.org/pypi/nose>`_ (for testing)
+- `colorama <https://pypi.org/project/colorama/>`_
+- `pylint <https://pypi.org/project/pylint/>`_
+- `pytest <https://pypi.org/project/pytest/>`_ (for testing)
 
 Installation
 ------------
