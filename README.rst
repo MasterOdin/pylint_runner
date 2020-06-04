@@ -67,6 +67,9 @@ See the standard help ouput::
 
     pylint_runner -h
 
+**NOTE:** Unused options and arguments will be passed directly to pylint. For example,
+doing `pylint_runner -d C0103 -d E0602` will cause `pylint -d C0103 -d E0602` on each file.
+
 Verbose mode
 ------------
 ::
