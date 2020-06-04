@@ -22,6 +22,9 @@ script:
   - coverage run --source=pylint_runner -m pytest
   - pylint_runner
 
+after_script:
+  - coveralls
+
 deploy:
   provider: pypi
   skip_cleanup: true
