@@ -26,6 +26,9 @@ class Runner:
     DEFAULT_RCFILE = ".pylintrc"
 
     def __init__(self, args=None):
+        if args is None:
+            args = []
+
         colorama.init(autoreset=True)
 
         self.verbose = False
@@ -33,13 +36,15 @@ class Runner:
         self.rcfile = self.DEFAULT_RCFILE
         self.ignore_folders = self.DEFAULT_IGNORE_FOLDERS
 
-        self._parse_args(args or sys.argv[1:])
+        self._parse_args(args)
         self._parse_ignores()
 
     def _parse_args(self, args):
         """Parses any supplied command-line args and provides help text. """
 
-        parser = ArgumentParser(description="Runs pylint recursively on a directory")
+        parser = ArgumentParser(
+            description="Runs pylint recursively on a directory"
+        )
 
         parser.add_argument(
             "-v",
@@ -63,10 +68,13 @@ class Runner:
             "-V",
             "--version",
             action="version",
-            version="%(prog)s ({0}) for Python {1}".format(__version__, PYTHON_VERSION),
+            version="%(prog)s ({0}) for Python {1}".format(
+                __version__,
+                PYTHON_VERSION
+            ),
         )
 
-        options, _ = parser.parse_known_args(args)
+        options, rest = parser.parse_known_args(args)
 
         self.verbose = options.verbose
 
@@ -75,6 +83,8 @@ class Runner:
                 options.rcfile = os.getcwd() + "/" + options.rcfile
             self.rcfile = options.rcfile
 
+        self.args += rest
+
         return options
 
     def _parse_ignores(self):
@@ -82,7 +92,9 @@ class Runner:
 
         error_message = (
             colorama.Fore.RED
-            + "{} does not appear to be a valid pylintrc file".format(self.rcfile)
+            + "{} does not appear to be a valid pylintrc file".format(
+                self.rcfile
+            )
             + colorama.Fore.RESET
         )
 
@@ -113,9 +125,9 @@ class Runner:
 
     def get_files_from_dir(self, current_dir):
         """
-        Recursively walk through a directory and get all python files and then walk
-        through any potential directories that are found off current directory,
-        so long as not within self.IGNORE_FOLDERS
+        Recursively walk through a directory and get all python files and then
+        walk through any potential directories that are found off current
+        directory, so long as not within self.IGNORE_FOLDERS
         :return: all python files that were found off current_dir
         """
         if current_dir[-1] != "/" and current_dir != ".":
@@ -165,15 +177,19 @@ class Runner:
 
         self._print_line("pylint running on the following files:")
         for pylint_file in pylint_files:
-            # we need to recast this as a string, else pylint enters an endless recursion
+            # we need to recast this as a string, else pylint enters an
+            # endless recursion
             split_file = str(pylint_file).split("/")
-            split_file[-1] = colorama.Fore.CYAN + split_file[-1] + colorama.Fore.RESET
+            split_file[-1] = colorama.Fore.CYAN + split_file[-1] \
+                + colorama.Fore.RESET
             pylint_file = "/".join(split_file)
             self._print_line("- " + pylint_file)
         self._print_line("----")
 
         if not self._is_using_default_rcfile():
-            self.args += ["--rcfile={}".format(self.rcfile)]
+            # insert this at the front so it's not after any potential
+            # positional arguments
+            self.args.insert(0, "--rcfile={}".format(self.rcfile))
 
         exit_kwarg = {"do_exit": False}
 
@@ -186,7 +202,10 @@ class Runner:
 
 def main(output=None, error=None, verbose=False):
     """ The main (cli) interface for the pylint runner. """
-    runner = Runner(args=["--verbose"] if verbose is not False else None)
+    args = sys.argv[1:]
+    if verbose and '--verbose' not in args:
+        args.insert(0, '--verbose')
+    runner = Runner(args)
     runner.run(output, error)
 
 
