@@ -192,7 +192,15 @@ class Runner:
             # positional arguments
             self.args.insert(0, "--rcfile={}".format(self.rcfile))
 
-        exit_kwarg = {"do_exit": False}
+        pylint_version = [int(x) for x in pylint.__version__.split('.')]
+
+        pylint_5 = pylint_version[1] == 5 and pylint_version[2] < 1
+        pylint_pre_5 = pylint_version[1] < 5
+
+        if pylint_version[0] >= 2 and (pylint_pre_5 or pylint_5):
+            exit_kwarg = {"do_exit": False}
+        else:
+            exit_kwarg = {"exit": False}
 
         run = pylint.lint.Run(self.args + pylint_files, **exit_kwarg)
         sys.stdout = savedout
