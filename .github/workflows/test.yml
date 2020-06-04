@@ -26,14 +26,14 @@ jobs:
       run: |
         python3 -m pip install -U pip
         python3 -m pip install -r requirements.txt
-        python3 -m pip install coveralls
+        python3 -m pip install coveralls pytest
         python3 -m pip install .
 
     - name: Lint codebase
       run: pylint_runner
 
     - name: Run tests
-      run: nosetests -v --with-coverage --cover-package=pylint_runner
+      run: coverage run --source=pylint_runner -m pytest
 
     - name: Coveralls
       uses: coverallsapp/github-action@master

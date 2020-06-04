@@ -11,7 +11,7 @@ cache:
 install:
   - pip install -U pip
   - pip install -r requirements.txt
-  - pip install coveralls
+  - pip install coveralls pytest
   - python setup.py install
   - rm -rf build
   - rm -rf dist
@@ -19,11 +19,8 @@ install:
   - rm -rf plint_runner/__pycache__
 
 script:
-  - nosetests -v --with-coverage --cover-package=pylint_runner
+  - coverage run --source=pylint_runner -m pytest
   - pylint_runner
-
-after_success:
-  - coveralls
 
 deploy:
   provider: pypi
@@ -35,8 +32,8 @@ deploy:
   distributions: 'bdist_wheel sdist'
   user: Master_Odin_Bot
   password:
-    secure: NA6DRE/llIT1LhMu5JlYMH8yShAI3qpAVCasYpfCncRnChY7Cr5fRI4eEW465T0xQLXNKEQod3pRvmCWFtAKTtHx7Eqkf2+lZlK7bO0ToYrJ8QL3lAl3EY9UpQDBNtECc2/6ctROND2UqqifZkuHUKvNHc3qsjTGDAeFzvPQxj4=  
-    
+    secure: NA6DRE/llIT1LhMu5JlYMH8yShAI3qpAVCasYpfCncRnChY7Cr5fRI4eEW465T0xQLXNKEQod3pRvmCWFtAKTtHx7Eqkf2+lZlK7bO0ToYrJ8QL3lAl3EY9UpQDBNtECc2/6ctROND2UqqifZkuHUKvNHc3qsjTGDAeFzvPQxj4=
+
 
 notifications:
   email:

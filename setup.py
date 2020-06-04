@@ -23,6 +23,8 @@ CONSOLE_SCRIPTS = [
     "pylint_runner{0} = pylint_runner.main:main".format(MAJOR_MINOR_VERSION),
 ]
 
+DESC = "Run pylint recursively on all py files in current and sub-directories"
+
 setup(
     name="pylint_runner",
     version=__version__,
@@ -31,14 +33,14 @@ setup(
     license="MIT",
     author=__author__,
     author_email="matt.peveler@gmail.com",
-    description="Run pylint recursively on all py files in current and sub directories",
+    description=DESC,
     long_description=open(
         "README.rst"
     ).read(),  # + '\n\n' + open('CHANGELOG.rst').read(),
     entry_points={"console_scripts": CONSOLE_SCRIPTS},
-    python_requires='>=3.4',
+    python_requires='>=3.5',
     install_requires=get_requirements(),
-    tests_require=["nose"],
+    tests_require=["pytest"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
@@ -49,7 +51,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7"
