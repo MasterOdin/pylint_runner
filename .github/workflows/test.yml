@@ -36,5 +36,5 @@ jobs:
       run: coverage run --source=pylint_runner -m pytest
 
     - run: coveralls
-      with:
+      env:
         COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
