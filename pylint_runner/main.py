@@ -12,6 +12,7 @@ import sys
 import colorama
 import pylint
 import pylint.lint
+from pylint.lint.pylinter import PyLinter
 
 from pylint_runner import __version__
 
@@ -23,7 +24,6 @@ class Runner:
 
     DEFAULT_IGNORE_FOLDERS = [".git", ".idea", "__pycache__"]
     DEFAULT_ARGS = ["--reports=n", "--output-format=colorized"]
-    DEFAULT_RCFILE = ".pylintrc"
 
     def __init__(self, args=None):
         if args is None:
@@ -33,7 +33,7 @@ class Runner:
 
         self.verbose = False
         self.args = list(self.DEFAULT_ARGS)
-        self.rcfile = self.DEFAULT_RCFILE
+        self.rcfile = None
         self.ignore_folders = self.DEFAULT_IGNORE_FOLDERS
 
         self._parse_args(args)
@@ -59,9 +59,7 @@ class Runner:
             "--rcfile",
             dest="rcfile",
             action="store",
-            default=".pylintrc",
-            help="A relative or absolute path to your pylint rcfile. Defaults to\
-                            `.pylintrc` at the current working directory",
+            help="A relative or absolute path to your pylint rcfile.",
         )
 
         parser.add_argument(
@@ -78,10 +76,7 @@ class Runner:
 
         self.verbose = options.verbose
 
-        if options.rcfile:
-            if not os.path.isfile(options.rcfile):
-                options.rcfile = os.getcwd() + "/" + options.rcfile
-            self.rcfile = options.rcfile
+        self.rcfile = options.rcfile
 
         self.args += rest
 
@@ -98,25 +93,20 @@ class Runner:
             + colorama.Fore.RESET
         )
 
-        if not os.path.isfile(self.rcfile):
-            if not self._is_using_default_rcfile():
-                print(error_message)
-                sys.exit(1)
-            else:
-                return
+        if self.rcfile is not None and not os.path.isfile(self.rcfile):
+            print(error_message)
+            sys.exit(1)
 
-        config = configparser.ConfigParser()
+        linter = PyLinter(pylintrc=self.rcfile)
         try:
-            config.read(self.rcfile)
+            linter.read_config_file()
         except configparser.MissingSectionHeaderError:
             print(error_message)
             sys.exit(1)
 
+        config = linter.cfgfile_parser
         if config.has_section("MASTER") and config.get("MASTER", "ignore"):
             self.ignore_folders += config.get("MASTER", "ignore").split(",")
-
-    def _is_using_default_rcfile(self):
-        return self.rcfile == os.getcwd() + "/" + self.DEFAULT_RCFILE
 
     def _print_line(self, line):
         """ Print output only with verbose flag. """
@@ -187,7 +177,7 @@ class Runner:
             self._print_line("- " + pylint_file)
         self._print_line("----")
 
-        if not self._is_using_default_rcfile():
+        if self.rcfile is not None:
             # insert this at the front so it's not after any potential
             # positional arguments
             self.args.insert(0, "--rcfile={}".format(self.rcfile))
