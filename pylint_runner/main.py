@@ -106,7 +106,12 @@ class Runner:
 
         config = linter.cfgfile_parser
         if config.has_option("MASTER", "ignore"):
-            self.ignore_folders += config.get("MASTER", "ignore").split(",")
+            self.ignore_folders += [
+                word.strip()
+                for word
+                in config.get("MASTER", "ignore").split(",")
+                if word.strip()
+            ]
 
     def _print_line(self, line):
         """ Print output only with verbose flag. """
