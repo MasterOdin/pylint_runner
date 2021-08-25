@@ -105,7 +105,7 @@ class Runner:
             sys.exit(1)
 
         config = linter.cfgfile_parser
-        if config.has_section("MASTER") and config.get("MASTER", "ignore"):
+        if config.has_option("MASTER", "ignore"):
             self.ignore_folders += config.get("MASTER", "ignore").split(",")
 
     def _print_line(self, line):
