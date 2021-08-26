@@ -32,7 +32,8 @@ def test_get_files_current_dir():
 
 def test_main():
     with pytest.raises(SystemExit) as excinfo:
-        runner.main(error=open(os.devnull, 'w'))
+        with open(os.devnull, 'w', encoding='ascii') as devnull:
+            runner.main(devnull)
     assert excinfo.value.code == 0
 
 
@@ -40,7 +41,8 @@ def test_rcparser_success():
     with pytest.raises(SystemExit) as excinfo:
         args = ['--rcfile', 'tests/tests/good_rc_file']
         the_runner = runner.Runner(args=args)
-        the_runner.run(error=open(os.devnull, 'w'))
+        with open(os.devnull, 'w', encoding='ascii') as devnull:
+            the_runner.run(devnull)
     assert excinfo.value.code == 0
     assert 'migrations' in the_runner.ignore_folders
 

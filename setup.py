@@ -12,7 +12,7 @@ MAJOR_MINOR_VERSION = ".".join([str(x) for x in sys.version_info[0:2]])
 
 def get_requirements():
     """Get requirements from requirements.txt file"""
-    with open("requirements.txt") as requirements:
+    with open("requirements.txt", encoding='ascii') as requirements:
         reqs = requirements.readlines()
     return reqs
 
@@ -25,6 +25,9 @@ CONSOLE_SCRIPTS = [
 
 DESC = "Run pylint recursively on all py files in current and sub-directories"
 
+with open('README.rst', encoding='utf-8') as readme:
+    LONG_DESC = readme.read()
+
 setup(
     name="pylint_runner",
     version=__version__,
@@ -34,9 +37,7 @@ setup(
     author=__author__,
     author_email="matt.peveler@gmail.com",
     description=DESC,
-    long_description=open(
-        "README.rst"
-    ).read(),  # + '\n\n' + open('CHANGELOG.rst').read(),
+    long_description=LONG_DESC,
     entry_points={"console_scripts": CONSOLE_SCRIPTS},
     python_requires='>=3.5',
     install_requires=get_requirements(),
@@ -53,6 +54,8 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7"
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9"
     ],
 )
