@@ -1,9 +1,9 @@
 pylint_runner
 =============
 
-.. image:: https://travis-ci.org/MasterOdin/pylint_runner.svg?branch=master
-    :target: https://travis-ci.org/MasterOdin/pylint_runner
-    :alt: Build Status
+.. image:: https://github.com/MasterOdin/pylint_runner/actions/workflows/test.yml/badge.svg?branch=master&event=push
+    :target: https://github.com/MasterOdin/pylint_runner/actions/workflows/test.yml?query=event%3Apush+branch%3Amaster
+    :alt: Test Suite
 .. image:: https://coveralls.io/repos/MasterOdin/pylint_runner/badge.svg?branch=master
     :target: https://coveralls.io/r/MasterOdin/pylint_runner?branch=master
     :alt: Coverage Status
@@ -23,6 +23,7 @@ then runs pylint on all discovered `.py` files.
 Dependencies
 ------------
 
+- Python 3.5+
 - `colorama <https://pypi.org/project/colorama/>`_
 - `pylint <https://pypi.org/project/pylint/>`_
 - `pytest <https://pypi.org/project/pytest/>`_ (for testing)
