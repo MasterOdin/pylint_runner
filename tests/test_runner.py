@@ -33,7 +33,7 @@ def test_get_files_current_dir():
 def test_main():
     with pytest.raises(SystemExit) as excinfo:
         with open(os.devnull, 'w', encoding='ascii') as devnull:
-            runner.main(devnull)
+            runner.main(devnull, args=[])
     assert excinfo.value.code == 0
 
 

@@ -209,9 +209,10 @@ class Runner:
         sys.exit(run.linter.msg_status)
 
 
-def main(output=None, error=None, verbose=False):
+def main(output=None, error=None, verbose=False, args=None):
     """ The main (cli) interface for the pylint runner. """
-    args = sys.argv[1:]
+    if args is None:
+        args = sys.argv[1:]
     if verbose and '--verbose' not in args:
         args.insert(0, '--verbose')
     runner = Runner(args)
