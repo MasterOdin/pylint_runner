@@ -32,7 +32,7 @@ class Runner:
         colorama.init(autoreset=True)
 
         self.verbose = False
-        self.args = self.DEFAULT_ARGS
+        self.args = list(self.DEFAULT_ARGS)
         self.rcfile = self.DEFAULT_RCFILE
         self.ignore_folders = self.DEFAULT_IGNORE_FOLDERS
 

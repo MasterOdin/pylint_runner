@@ -2,4 +2,4 @@
 ignore=migrations
 
 [FORMAT]
-max-line-length=15
+max-line-length=100
