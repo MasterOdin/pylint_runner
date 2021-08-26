@@ -29,8 +29,6 @@ jobs:
       run: pylint_runner
 
     - name: Run tests
-      run: python3 -m pytest --cov=pylint_runner tests/
+      run: python3 -m pytest --cov=pylint_runner --cov-report=xml tests/
 
     - uses: codecov/codecov-action@v2
-      with:
-        files: ./.coverage
