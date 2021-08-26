@@ -4,8 +4,8 @@ pylint_runner
 .. image:: https://github.com/MasterOdin/pylint_runner/actions/workflows/test.yml/badge.svg?branch=master&event=push
     :target: https://github.com/MasterOdin/pylint_runner/actions/workflows/test.yml?query=event%3Apush+branch%3Amaster
     :alt: Test Suite
-.. image:: https://coveralls.io/repos/MasterOdin/pylint_runner/badge.svg?branch=master
-    :target: https://coveralls.io/r/MasterOdin/pylint_runner?branch=master
+.. image:: https://codecov.io/gh/MasterOdin/pylint_runner/branch/master/graph/badge.svg?token=7YcKpPbLXl
+    :target: https://codecov.io/gh/MasterOdin/pylint_runner
     :alt: Coverage Status
 .. image:: https://img.shields.io/pypi/v/pylint_runner.svg
     :target: https://pypi.python.org/pypi/pylint_runner/
