@@ -112,8 +112,11 @@ class Runner:
             print(error_message)
             sys.exit(1)
 
-        if config.has_section("MASTER") and config.get("MASTER", "ignore"):
-            self.ignore_folders += config.get("MASTER", "ignore").split(",")
+        master_sections = ['MASTER', 'master', 'pylint.MASTER', 'pylint.master']
+        for master_section in master_sections:
+            if config.has_section(master_section) and config.get(master_section, "ignore"):
+                self.ignore_folders += config.get(master_section, "ignore").split(",")
+                break
 
     def _is_using_default_rcfile(self):
         return self.rcfile == os.getcwd() + "/" + self.DEFAULT_RCFILE
