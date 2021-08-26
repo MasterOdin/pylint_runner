@@ -69,8 +69,6 @@ def _assert_list_equals(list1, list2):
 def test_passthrough_args():
     the_runner = runner.Runner(args=['-d', 'C0103', '-d', 'E0602'])
     expected = [
-        '--rcfile=tests/tests/good_rc_file',
-        '--rcfile=.pylintrc',
         '--reports=n',
         '--output-format=colorized',
         '-d',
