@@ -68,10 +68,7 @@ class Runner:
             "-V",
             "--version",
             action="version",
-            version="%(prog)s ({0}) for Python {1}".format(
-                __version__,
-                PYTHON_VERSION
-            ),
+            version=f"%(prog)s ({__version__}) for Python {PYTHON_VERSION}",
         )
 
         options, rest = parser.parse_known_args(args)
@@ -92,9 +89,7 @@ class Runner:
 
         error_message = (
             colorama.Fore.RED
-            + "{} does not appear to be a valid pylintrc file".format(
-                self.rcfile
-            )
+            + f"{self.rcfile} does not appear to be a valid pylintrc file"
             + colorama.Fore.RESET
         )
 
@@ -190,9 +185,10 @@ class Runner:
         if not self._is_using_default_rcfile():
             # insert this at the front so it's not after any potential
             # positional arguments
-            self.args.insert(0, "--rcfile={}".format(self.rcfile))
+            self.args.insert(0, f"--rcfile={self.rcfile}")
 
-        pylint_version = [int(x) for x in pylint.__version__.split('.')]
+        #strip out -dev in case not on prod version of pylint
+        pylint_version = [int(x) for x in pylint.__version__.replace('-dev', '').split('.')]
 
         pylint_5 = pylint_version[1] == 5 and pylint_version[2] < 1
         pylint_pre_5 = pylint_version[1] < 5
