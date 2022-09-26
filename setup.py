@@ -19,8 +19,8 @@ def get_requirements():
 
 CONSOLE_SCRIPTS = [
     "pylint_runner = pylint_runner.main:main",
-    "pylint_runner{0} = pylint_runner.main:main".format(MAJOR_VERSION),
-    "pylint_runner{0} = pylint_runner.main:main".format(MAJOR_MINOR_VERSION),
+    f"pylint_runner{MAJOR_VERSION} = pylint_runner.main:main",
+    f"pylint_runner{MAJOR_MINOR_VERSION} = pylint_runner.main:main",
 ]
 
 DESC = "Run pylint recursively on all py files in current and sub-directories"
